@@ -13,6 +13,10 @@ export class CreateUserDto extends User {
   @MaxLength(20)
   username: string;
 
+  @IsString()
+  @MinLength(2)
+  name: string
+
   @IsEmail()
   email: string;
 
