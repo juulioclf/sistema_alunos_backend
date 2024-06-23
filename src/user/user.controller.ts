@@ -3,9 +3,9 @@ import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
 
 @ApiTags('users')
 @Controller('user')

@@ -3,11 +3,15 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthRequest } from './models/AuthRequest';
 import { IsPublic } from './decorators/is-public.decorator';
+import { ApiBody, ApiOperation } from '@nestjs/swagger';
+import { LoginRequestBody } from './models/LoginRequestBody';
 
 @Controller()
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
+    @ApiOperation({ summary: 'Login into the system' })
+    @ApiBody({ type: LoginRequestBody })
     @IsPublic()
     @Post('login')
     @HttpCode(HttpStatus.OK)
