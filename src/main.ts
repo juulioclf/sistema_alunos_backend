@@ -8,7 +8,7 @@ async function bootstrap() {
   app.enableCors({
     origin: '*', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
     credentials: true,
   });
   new SwaggerService().init(app);
@@ -23,6 +23,6 @@ async function bootstrap() {
     })
   );
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

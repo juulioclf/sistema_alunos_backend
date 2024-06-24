@@ -34,11 +34,27 @@ export class StudentService {
 
   }
 
-  async findAll() {
+  async findAll(page: number = 1, pageSize: number = 10) {
+    const skip = (page - 1) * pageSize;
+    const take = pageSize;
 
-    const allStudents = await this.prisma.student.findMany();
+    const [students, total] = await Promise.all([
+      this.prisma.student.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.student.count(),
+    ]);
 
-    return {...allStudents}
+    return {
+      students,
+      meta: {
+        totalItems: total,
+        currentPage: page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      },
+    };
   }
 
   async findOne(id: number) {

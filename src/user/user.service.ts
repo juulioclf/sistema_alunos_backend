@@ -71,8 +71,14 @@ export class UserService {
     }
   }
 
-  async remove(arg0: number) {
-    throw new Error('Method not implemented.');
+  async remove(id: number) {
+    const deletedUser = await this.prisma.user.delete({
+      where: {id: id}
+    })
+
+    return {
+      ...deletedUser
+    }
   }
   
   async changePassword(updatePasswordDto: UpdatePasswordDto) {
@@ -80,20 +86,9 @@ export class UserService {
   }
 
   async findUser(data: string) {
-    let user
-
-    if (data.includes('@')) {
-      user = await this.prisma.user.findUnique({
-        where: { email: data }
-      });
-    }
-
-
-    if (!user) {
-      user = await this.prisma.user.findUnique({
-        where: { username: data }
-      });
-    }
+    const user = await this.prisma.user.findUnique({
+      where: { email: data }
+    });
 
     return user;
   }

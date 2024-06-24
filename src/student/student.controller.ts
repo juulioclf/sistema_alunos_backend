@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiBody } from '@nestjs/swagger'; // Importar os decorators do Swagger
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
@@ -18,8 +18,10 @@ export class StudentController {
 
   @ApiOperation({ summary: 'Get all students' })
   @Get()
-  findAll() {
-    return this.studentService.findAll();
+  findAll(@Query('page') page: number = 1, @Query('pageSize') pageSize: number = 10) {
+    const result = this.studentService.findAll();
+    
+    return result;
   }
 
   @ApiOperation({ summary: 'Get a student by ID' })
